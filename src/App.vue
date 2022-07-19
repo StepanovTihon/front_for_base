@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
+  <div class="body container">
+    
+    
+    <MainLayout v-if="User.login === true"></MainLayout>
+    <LoginLayout v-if="User.login === false"></LoginLayout>
+    <hr color="#2c3e50"/>
+    <button class="btn danger" @click="Mutate"> сменить</button>
+    
+  </div>
+ 
+</template> 
+  
+<script> 
+import MainLayout from './layout/MainLayout.vue';
+import LoginLayout from './layout/LoginLayout.vue';
+import { mapState, mapMutations } from "vuex";
 export default {
+  computed:{
+    ...mapState(['User']),
+    
+  },
+  methods: {
+    ...mapMutations(['MutateLogin']),
+    Mutate(){
+      this.MutateLogin()
+    }
+  },
+  data(){
+    return {
+    }
+  }, 
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: {MainLayout,LoginLayout}
 }
-</script>
+</script> 
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
