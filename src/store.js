@@ -20,7 +20,7 @@ export default createStore({
             paid:false,
             name_lodgers:"Tihon",
             lodgers_id:1,
-            adress:"Кирова30257",
+            adress:"adress",
             apartments_id:1
           },
           {
@@ -31,7 +31,7 @@ export default createStore({
             paid:true,
             name_lodgers:"Tihon",
             lodgers_id:1,
-            adress:"Кирова30257",
+            adress:"adress",
             apartments_id:1
           },
           {
@@ -42,7 +42,7 @@ export default createStore({
             paid:true,
             name_lodgers:"Tihon",
             lodgers_id:1,
-            adress:"Кирова30257",
+            adress:"adress",
             apartments_id:1
           }
         ]
