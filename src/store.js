@@ -71,11 +71,11 @@ export default createStore({
     
   },
   actions: {
-    async UpdateUserInfo(){
+    async UpdateUserInfo(context){
       console.log("UpdateUserInfo")
       const response = await fetch(`http://localhost:8080/info/${this.User.UserId}/${this.User.UserToken}`,{methods:'GET'})
       const data = await response.json()
-      this.Update(data)
+      context.commit('Update',{ value:data})
     }
   },
   modules: {

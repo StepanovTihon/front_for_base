@@ -1,46 +1,37 @@
 <template>
   <div class="navbar">
-    
-    
-    
+    <app-button
+      :color="active === 'ServiceInfo' ? 'primary' : ''"
+      @action="ChangeActivePage('ServiceInfo')"
+      >Информация о услугах
+    </app-button>
 
     <app-button
-      :color="active === 'ServiceInfo' ? 'primary' : ''" 
-      @action="ChangeActivePage('ServiceInfo')">Информация о услугах
+      class=""
+      :color="active === 'DrawUserInfo' ? 'primary' : ''"
+      @action="ChangeActivePage('DrawUserInfo')"
+      >Информация о пользователе
     </app-button>
-    
-  
-    <app-button class="card tihon"
-      :color="active === 'DrawUserInfo' ? 'primary' : ''" 
-      @action="ChangeActivePage('DrawUserInfo')">Информация о пользователе
-    </app-button>
-    
-  </div> 
-  
+  </div>
 </template>
 
 <script>
-import AppButton from './AppButton.vue';
-import { mapState,mapActions,mapMutations } from "vuex";
+import AppButton from "./AppButton.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
-   computed:{
-    ...mapState(['active']),
-    
+  computed: {
+    ...mapState(["active"]),
   },
-  methods: {
-    ...mapActions(['UpdateUserInfo']),
-    ...mapMutations(['ChangeActivePage'])
 
+  methods: {
+    ...mapActions(["UpdateUserInfo"]),
+    ...mapMutations(["ChangeActivePage"]),
   },
-  data(){
-    return {
-      
-    }
-  }, 
-  components: {AppButton}
-}
+  data() {
+    return {};
+  },
+  components: { AppButton },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
