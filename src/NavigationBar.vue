@@ -3,14 +3,11 @@
     <div style="color: #77a9f9" @click="ChangeActivePage('ServiceInfo')">
       Личный кабинет
     </div>
-
-    <div
-      class="btn primary"
-      style="border-radius: 99px"
+    <img
+      src="./low.png"
+      style="height: 50px; background: rgb(0, 0, 0, 0.5)"
       @click="ChangeActivePage('DrawUserInfo')"
-    >
-      *
-    </div>
+    />
   </div>
 </template>
 
