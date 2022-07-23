@@ -11,6 +11,7 @@
 import NavigationBar from "../NavigationBar.vue";
 import DrawUserInfo from "../DrawUserInfo.vue";
 import ServiceInfo from "../ServiceInfo.vue";
+
 import { mapState } from "vuex";
 
 export default {

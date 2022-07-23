@@ -2,7 +2,7 @@
   <div class="card center">
     <h3 class="center">Вход</h3>
 
-    <div class="center-justify">
+    <div class="">
       <label style="display: inline">Email</label>
       <input
         id="Email"
@@ -16,7 +16,7 @@
     <h2 class="warning center" center v-if="errEmail && Email.length === 0">
       Введите логин!
     </h2>
-    <div class="center-justify">
+    <div class="">
       <label style="display: inline">Пароль</label>
       <input
         id="Password"

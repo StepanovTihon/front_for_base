@@ -133,7 +133,7 @@ body {
     
 }
 
-.flex-element.small {
+.small {
     font-size: 0.83em; 
 }
 
@@ -142,7 +142,7 @@ body {
     flex-direction: column;
     
 }
- 
+
 .string {
     display: flex;
     justify-content: space-between;
@@ -184,6 +184,6 @@ h2{
 h5{
     font-weight:normal;
     display: inline; 
-    margin-left: 60vh;
     font-size: 20px;
+    
 }

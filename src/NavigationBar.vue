@@ -1,7 +1,10 @@
 <template>
-  <div class="container navbar">
+  <div :class="mobile === true ? 'container navbar' : 'navbar'">
     <div style="color: #77a9f9" @click="ChangeActivePage('ServiceInfo')">
       Личный кабинет
+    </div>
+    <div style="color: #77a9f9" @click="ChangeActivePage('ServiceInfo')">
+      Подать показания
     </div>
     <img
       src="./low.png"
@@ -16,6 +19,9 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState(["active"]),
+    mobile() {
+      return window.innerWidth > window.innerHeight;
+    },
   },
 
   methods: {

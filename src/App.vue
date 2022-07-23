@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div :class="mobile === true ? 'container' : ''">
     <MainLayout v-if="User.login === true"></MainLayout>
     <LoginLayout v-if="User.login === false"></LoginLayout>
 
@@ -14,6 +14,9 @@ import { mapState, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState(["User"]),
+    mobile() {
+      return window.innerWidth > window.innerHeight;
+    },
   },
   methods: {
     ...mapMutations(["MutateLogin"]),
