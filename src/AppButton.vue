@@ -1,29 +1,27 @@
 <template>
-  <button class="btn" :class="color" @click="$emit('action')">
+  <button :class="color" @click="$emit('action')">
     <slot />
   </button>
 </template>
 
 <script>
 export default {
-  emits: ['action'],
+  emits: ["action"],
   props: {
     color: {
       type: String,
-      default: '',
+      default: "",
       validator(value) {
-        return ['', 'primary', 'danger'].includes(value)
-      }
-    }
+        return ["", "primary", "danger"].includes(value);
+      },
+    },
   },
   methods: {
     btnLog() {
-      console.log('Button log')
-    }
-  }
-}
+      console.log("Button log");
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

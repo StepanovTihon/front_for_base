@@ -14,7 +14,7 @@ export default createStore({
         Service:[
           {
             service_id:1,
-            services_name:"Вода",
+            services_name:"вода",
             paymant_amount:1500,
             date_services:"12.02.2022",
             paid:false,
@@ -24,8 +24,8 @@ export default createStore({
             apartments_id:1
           },
           {
-            service_id:3,
-            services_name:"Газ",
+            service_id:2,
+            services_name:"газ",
             paymant_amount:3000,
             date_services:"10.02.2022",
             paid:true,
@@ -35,11 +35,66 @@ export default createStore({
             apartments_id:1
           },
           {
-            service_id:2,
-            services_name:"Электричество",
+            service_id:3,
+            services_name:"электричество",
             paymant_amount:3000,
             date_services:"11.02.2022",
             paid:true,
+            name_lodgers:"Tihon",
+            lodgers_id:1,
+            adress:"adress",
+            apartments_id:1
+          },
+          {
+            service_id:4,
+            services_name:"вода",
+            paymant_amount:1700,
+            date_services:"1.01.2022",
+            paid:true,
+            name_lodgers:"Tihon",
+            lodgers_id:1,
+            adress:"adress",
+            apartments_id:1
+          },
+          {
+            service_id:5,
+            services_name:"газ",
+            paymant_amount:2200,
+            date_services:"30.08.2021",
+            paid:true,
+            name_lodgers:"Tihon",
+            lodgers_id:1,
+            adress:"adress",
+            apartments_id:1
+          },
+          {
+            service_id:6,
+            services_name:"электричество",
+            paymant_amount:4600,
+            date_services:"15.03.2021",
+            paid:false,
+            name_lodgers:"Tihon",
+            lodgers_id:1,
+            adress:"adress",
+            apartments_id:1
+          },
+          {
+            service_id:7,
+            services_name:"вода",
+            paymant_amount:1200,
+            date_services:"30.02.2021",
+            paid:true,
+            name_lodgers:"Tihon",
+            lodgers_id:1,
+            adress:"adress",
+            apartments_id:1
+          },
+          {
+            service_id:8,
+            services_name:"газ",
+            paymant_amount:12000,
+            date_services:"1.01.2021",
+            paid:false,
             name_lodgers:"Tihon",
             lodgers_id:1,
             adress:"adress",

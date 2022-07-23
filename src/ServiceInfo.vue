@@ -2,32 +2,36 @@
   <div class="card">
     <div class="flex-conteiner to-strings">
       <div class="flex-conteiner nav">
-        <div class="flex-element">имя услуги</div>
-        <div class="flex-element">сумма</div>
-        <div class="flex-element">период</div>
-        <div class="flex-element">оплечено</div>
-        <div class="flex-element">арендатор</div>
-        <div class="flex-element">адрес</div>
+        <div class="flex-element">Период</div>
+        <div class="flex-element">Категория</div>
+        <div class="flex-element">Сумма</div>
+        <div class="flex-element">Оплачено</div>
       </div>
       <div
         v-for="OneService in filterMass"
         :key="OneService.service_id"
         class="flex-conteiner string"
       >
-        <div class="flex-element">{{ OneService.services_name }}</div>
-        <div class="flex-element">{{ OneService.paymant_amount }}</div>
-        <div class="flex-element">{{ OneService.date_services }}</div>
-        <div class="flex-element">
+        <div class="flex-element small">{{ OneService.date_services }}</div>
+        <div class="flex-element small left" style="align-items: flex-start">
+          {{ OneService.services_name }}
+        </div>
+        <div class="flex-element small">{{ OneService.paymant_amount }}</div>
+        <div class="flex-element small">
           {{ OneService.paid === true ? "Да" : "Нет" }}
         </div>
-        <div class="flex-element">{{ OneService.name_lodgers }}</div>
-        <div class="flex-element">{{ OneService.adress }}</div>
       </div>
     </div>
-
-    <button @click="filter = !filter" class="btn">
-      {{ filter ? "\\/ Показать всё" : "/\\ Скрыть уже оплаченное" }}
-    </button>
+    <div>
+      <button @click="filter = !filter" class="btn">
+        {{ filter ? "\\/ Показать всё" : "/\\ Скрыть уже оплаченное" }}
+      </button>
+      <h5 v-if="filter === true">
+        Итого:{{
+          filterMass.reduce((acc, value) => (acc += value.paymant_amount), 0)
+        }}
+      </h5>
+    </div>
   </div>
 </template>
 <script>
