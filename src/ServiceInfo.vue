@@ -4,7 +4,7 @@
       <button @click="filter = !filter" class="btn">
         {{ filter ? "\\/ Показать всё" : "/\\ Скрыть уже оплаченное" }}
       </button>
-      <h5 v-if="filter === true">
+      <h5 v-if="filter === true" style="color: rgb(255, 255, 255)">
         Итого:{{
           filterMass.reduce((acc, value) => (acc += value.paymant_amount), 0)
         }}
@@ -38,26 +38,46 @@
         :key="OneService.service_id"
         class="card"
       >
-        <div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+          "
+        >
           <div
-            class="small"
-            style="display: inline; justify-content: flex-start; font-size: 25px"
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-size: 25px;
+              text-transform: capitalize;
+            "
           >
             {{ OneService.services_name }}
           </div>
+
           <div
-            class="small"
-            style="display: inline-flex; justify-content: flex-end"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: baseline;
+            "
           >
-            {{ OneService.date_services }}
+            <div class="small" style="font-size: 13px">
+              {{ OneService.date_services }}
+            </div>
+            <div
+              class="small"
+              style="font-size: 25px"
+              :style="
+                OneService.paid === true
+                  ? 'color:rgb(0, 128, 0)'
+                  : 'color:rgb(249, 102, 102)'
+              "
+            >
+              {{ OneService.paymant_amount }}
+            </div>
           </div>
-        <div>
-
-
-        <div class="small">Сумма: {{ OneService.paymant_amount }}</div>
-        <div class="small">
-          Оплачено:
-          {{ OneService.paid === true ? "Да" : "Нет" }}
         </div>
       </div>
     </div>
