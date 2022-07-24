@@ -50,6 +50,9 @@ body {
     background: rgb(78, 78, 78);
 }
 
+.navtext:hover{
+    background: rgb(78, 78, 78);
+}
 
 .container {
     margin: 0 auto;
@@ -58,7 +61,7 @@ body {
 
 
 .with-nav {
-    margin-top: 70px;
+    margin-top: 60px;
 }
 
 .form-control {
@@ -84,6 +87,7 @@ body {
 .left {
     display: flex;
     align-items: flex-start;
+
 }
 
 .right {

@@ -1,9 +1,17 @@
 <template>
-  <div :class="mobile === true ? 'container navbar' : 'navbar'">
-    <div style="color: #77a9f9" @click="ChangeActivePage('ServiceInfo')">
+  <div :class="mobile === true ? 'container navbar ' : 'navbar'">
+    <div
+      style="color: #77a9f9"
+      class="navtext"
+      @click="ChangeActivePage('ServiceInfo')"
+    >
       Личный кабинет
     </div>
-    <div style="color: #77a9f9" @click="ChangeActivePage('ServiceInfo')">
+    <div
+      style="color: #77a9f9"
+      class="navtext"
+      @click="ChangeActivePage('ServiceInfo')"
+    >
       Подать показания
     </div>
     <img

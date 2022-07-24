@@ -1,14 +1,27 @@
 <template>
   <div class="card">
-    <div>
-      <button @click="filter = !filter" class="btn">
-        {{ filter ? "\\/ Показать всё" : "/\\ Скрыть уже оплаченное" }}
-      </button>
-      <h5 v-if="filter === true" style="color: rgb(255, 255, 255)">
-        Итого:{{
-          filterMass.reduce((acc, value) => (acc += value.paymant_amount), 0)
-        }}
-      </h5>
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      "
+    >
+      <div>
+        <button @click="filter = !filter" class="btn">
+          {{ filter ? "\\/ Показать всё" : "/\\ Скрыть уже оплаченное" }}
+        </button>
+      </div>
+      <div>
+        <h5
+          v-if="filter === true"
+          style="color: rgb(255, 255, 255); margin: 0px; color: #77a9f9"
+        >
+          Итого:{{
+            filterMass.reduce((acc, value) => (acc += value.paymant_amount), 0)
+          }}
+        </h5>
+      </div>
     </div>
     <div class="flex-conteiner to-strings" v-if="mobile">
       <div class="flex-conteiner nav">
@@ -21,14 +34,39 @@
         v-for="OneService in filterMass"
         :key="OneService.service_id"
         class="flex-conteiner string"
+        :style="
+          OneService.paid === undefined
+            ? 'background: rgb(38, 38, 38); width:100%'
+            : ''
+        "
       >
-        <div class="flex-element small">{{ OneService.date_services }}</div>
+        <div class="flex-element small">
+          {{
+            OneService.paid !== undefined
+              ? OneService.date_services
+              : mobile
+              ? OneService.services_name
+              : OneService.date_services
+          }}
+        </div>
         <div class="flex-element small left" style="align-items: flex-start">
-          {{ OneService.services_name }}
+          {{
+            OneService.paid !== undefined
+              ? OneService.services_name
+              : mobile
+              ? ""
+              : OneService.services_name
+          }}
         </div>
         <div class="flex-element small">{{ OneService.paymant_amount }}</div>
         <div class="flex-element small">
-          {{ OneService.paid === true ? "Да" : "Нет" }}
+          {{
+            OneService.paid === undefined
+              ? ""
+              : OneService.paid === true
+              ? "Да"
+              : "Нет"
+          }}
         </div>
       </div>
     </div>
@@ -37,6 +75,9 @@
         v-for="OneService in filterMass"
         :key="OneService.service_id"
         class="card"
+        :style="
+          OneService.paid === undefined ? 'background: rgb(38, 38, 38);' : ''
+        "
       >
         <div
           style="
@@ -128,6 +169,7 @@ export default {
           {
             services_name:
               month[Number(arr[0].date_services.split(".")[1]) - 1] +
+              " " +
               arr[0].date_services.split(".")[2],
           },
           arr[0],
@@ -143,6 +185,7 @@ export default {
             newarr.push({
               services_name:
                 month[Number(arr[i].date_services.split(".")[1]) - 1] +
+                " " +
                 arr[i].date_services.split(".")[2],
             });
           }
