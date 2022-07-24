@@ -106,10 +106,49 @@ export default {
     },
     filterMass() {
       let arr = this.sortMass;
+      let month = [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь",
+        "Декабрь",
+      ];
+
       if (this.filter) {
         return arr.filter((value) => !value.paid);
       } else {
-        return arr;
+        let newarr = [
+          {
+            services_name:
+              month[Number(arr[0].date_services.split(".")[1]) - 1] +
+              arr[0].date_services.split(".")[2],
+          },
+          arr[0],
+        ];
+        console.log(arr.length);
+        for (let i = 1; i < arr.length; i++) {
+          if (
+            arr[i].date_services.split(".")[1] !=
+              arr[i - 1].date_services.split(".")[1] ||
+            arr[i].date_services.split(".")[2] !=
+              arr[i - 1].date_services.split(".")[2]
+          ) {
+            newarr.push({
+              services_name:
+                month[Number(arr[i].date_services.split(".")[1]) - 1] +
+                arr[i].date_services.split(".")[2],
+            });
+          }
+          newarr.push(arr[i]);
+        }
+        return newarr;
       }
     },
     mobile() {
