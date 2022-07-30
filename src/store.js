@@ -124,11 +124,11 @@ export default createStore({
       state.active = info;
     },
     LoginUpdate(state, value) {
-      state.User.UserToken = value.token;
-      state.User.UserId = value.lodgers_id;
-      state.User.Error = value.error;
+      state.User.UserToken = value.data.token;
+      state.User.UserId = value.data.lodgers_id;
+      state.User.Error = value.response.status;
 
-      if (value.error === undefined) {
+      if (value.data.error === undefined) {
         state.User.login = !state.User.login;
       }
     },
@@ -142,7 +142,7 @@ export default createStore({
       const data = await response.json();
       context.commit("Update", data);
     },
-    async test(context) {
+    async Login(context) {
       const response = await fetch(`/login`, {
         method: "POST",
         headers: {
@@ -155,7 +155,7 @@ export default createStore({
       });
       const data = await response.json();
 
-      context.commit("LoginUpdate", data);
+      context.commit("LoginUpdate", { data: data, response: response });
     },
   },
   modules: {},

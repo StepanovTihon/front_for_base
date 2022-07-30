@@ -34,13 +34,13 @@
       class="btn center"
       @click="
         MutateLogin({ password: Password, login: Email });
-        test();
+        Login();
       "
     >
       Войти
     </button>
     <h2 class="warning center" v-if="User.Error !== undefined">
-      {{ User.Error }}
+      Eror: {{ User.Error }}
     </h2>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     ...mapMutations(["MutateLogin", "Input"]),
-    ...mapActions(["test", "UpdateUserInfo"]),
+    ...mapActions(["Login", "UpdateUserInfo"]),
   },
   data() {
     return {
