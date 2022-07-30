@@ -30,15 +30,30 @@
     <h2 class="warning center" v-if="errPassword && Password.length < 8">
       Введите пароль не короче 8 символов!
     </h2>
-    <button class="btn center" @click="MutateLogin">Войти</button>
+    <button
+      class="btn center"
+      @click="
+        MutateLogin({ password: Password, login: Email });
+        test();
+      "
+    >
+      Войти
+    </button>
+    <h2 class="warning center" v-if="User.Error !== undefined">
+      {{ User.Error }}
+    </h2>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
+  computed: {
+    ...mapState(["User"]),
+  },
   methods: {
-    ...mapMutations(["MutateLogin"]),
+    ...mapMutations(["MutateLogin", "Input"]),
+    ...mapActions(["test", "UpdateUserInfo"]),
   },
   data() {
     return {

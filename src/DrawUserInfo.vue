@@ -12,6 +12,7 @@ export default {
   computed: {
     ...mapState(["User"]),
   },
+  methods: {},
   data() {
     return {};
   },

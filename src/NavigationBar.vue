@@ -7,17 +7,14 @@
     >
       Личный кабинет
     </div>
-    <div
-      style="color: #77a9f9"
-      class="navtext"
-      @click="ChangeActivePage('ServiceInfo')"
-    >
-      Подать показания
-    </div>
+    <div style="color: #77a9f9" class="navtext">Подать показания</div>
     <img
       src="./low.png"
       style="height: 50px; background: rgb(0, 0, 0, 0.5)"
-      @click="ChangeActivePage('DrawUserInfo')"
+      @click="
+        ChangeActivePage('DrawUserInfo');
+        UpdateUserInfo();
+      "
     />
   </div>
 </template>
