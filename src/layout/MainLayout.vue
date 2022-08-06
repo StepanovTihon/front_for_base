@@ -16,7 +16,13 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["active"]),
+    ...mapState(["active", "User"]),
+  },
+  mounted() {
+    this.$nextTick(function () {
+      this.$cookies.set("token", this.User.UserToken, { expires: "6M" });
+      this.$cookies.set("id", this.User.UserId, { expires: "6M" });
+    });
   },
   data() {
     return {};

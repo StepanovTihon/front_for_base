@@ -12,96 +12,7 @@ export default createStore({
         UserToken: "",
         UserName: "",
         Error: "",
-        Service: [
-          {
-            service_id: 1,
-            services_name: "вода",
-            paymant_amount: 1500,
-            date_services: "12.02.2022",
-            paid: false,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 2,
-            services_name: "газ",
-            paymant_amount: 3000,
-            date_services: "10.02.2022",
-            paid: true,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 3,
-            services_name: "электричество",
-            paymant_amount: 3000,
-            date_services: "11.02.2022",
-            paid: true,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 4,
-            services_name: "вода",
-            paymant_amount: 1700,
-            date_services: "01.01.2022",
-            paid: true,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 5,
-            services_name: "газ",
-            paymant_amount: 2200,
-            date_services: "30.08.2021",
-            paid: true,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 6,
-            services_name: "электричество",
-            paymant_amount: 4600,
-            date_services: "15.03.2021",
-            paid: false,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 7,
-            services_name: "вода",
-            paymant_amount: 1200,
-            date_services: "30.02.2021",
-            paid: true,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-          {
-            service_id: 8,
-            services_name: "газ",
-            paymant_amount: 12000,
-            date_services: "01.01.2021",
-            paid: false,
-            name_lodgers: "Tihon",
-            lodgers_id: 1,
-            adress: "adress",
-            apartments_id: 1,
-          },
-        ],
+        Service: [],
       },
     };
   },
@@ -126,11 +37,24 @@ export default createStore({
     LoginUpdate(state, value) {
       state.User.UserToken = value.data.token;
       state.User.UserId = value.data.lodgers_id;
-      state.User.Error = value.response.status;
+      state.User.Error = "Eror:" + String(value.response.status);
 
       if (value.data.error === undefined) {
         state.User.login = !state.User.login;
       }
+    },
+    SignOut(state) {
+      state.User.login = !state.User.login;
+      state.User.UserName = null;
+      state.User.UserLogin = null;
+      state.User.UserId = null;
+      state.User.UserPassword = null;
+      state.User.UserToken = null;
+      state.User.Error = null;
+      state.active = "ServiceInfo";
+    },
+    NewService(state, value) {
+      state.User.Service = value;
     },
   },
   actions: {
@@ -141,6 +65,15 @@ export default createStore({
       );
       const data = await response.json();
       context.commit("Update", data);
+    },
+    async UpdateServiceInfo(context) {
+      const response = await fetch(
+        `/get_service/${this.state.User.UserId}/${this.state.User.UserToken}`,
+        { methods: "GET" }
+      );
+      const data = await response.json();
+      console.log(data.arr);
+      context.commit("NewService", data.arr);
     },
     async Login(context) {
       const response = await fetch(`/login`, {
@@ -156,6 +89,7 @@ export default createStore({
       const data = await response.json();
 
       context.commit("LoginUpdate", { data: data, response: response });
+      this.dispatch("UpdateServiceInfo");
     },
   },
   modules: {},

@@ -18,7 +18,7 @@
           style="color: rgb(255, 255, 255); margin: 0px; color: #77a9f9"
         >
           Итого:{{
-            filterMass.reduce((acc, value) => (acc += value.paymant_amount), 0)
+            filterMass.reduce((acc, value) => (acc += value.payment_amount), 0)
           }}
         </h5>
       </div>
@@ -36,7 +36,7 @@
         class="flex-conteiner string"
         :style="
           OneService.paid === undefined
-            ? 'background: rgb(38, 38, 38); width:100%'
+            ? 'background: rgb(38, 38, 38); width:100%; background: linear-gradient(90deg, #77a9f9 0%, rgba(0,0,0) 100%);'
             : ''
         "
       >
@@ -58,7 +58,7 @@
               : OneService.services_name
           }}
         </div>
-        <div class="flex-element small">{{ OneService.paymant_amount }}</div>
+        <div class="flex-element small">{{ OneService.payment_amount }}</div>
         <div class="flex-element small">
           {{
             OneService.paid === undefined
@@ -76,7 +76,9 @@
         :key="OneService.service_id"
         class="card"
         :style="
-          OneService.paid === undefined ? 'background: rgb(38, 38, 38);' : ''
+          OneService.paid === undefined
+            ? 'background: rgb(38, 38, 38);background: linear-gradient(90deg, #77a9f9 0%, rgba(0,0,0) 100%);'
+            : ''
         "
       >
         <div
@@ -116,7 +118,7 @@
                   : 'color:rgb(249, 102, 102)'
               "
             >
-              {{ OneService.paymant_amount }}
+              {{ OneService.payment_amount }}
             </div>
           </div>
         </div>
@@ -134,14 +136,14 @@ export default {
       return arr.sort(
         (prev, sled) =>
           Number(
-            sled.date_services.split(".")[2] +
-              sled.date_services.split(".")[1] +
-              sled.date_services.split(".")[0]
+            sled.date_services.split("-")[0] +
+              sled.date_services.split("-")[1] +
+              sled.date_services.split("-")[2]
           ) -
           Number(
-            prev.date_services.split(".")[2] +
-              prev.date_services.split(".")[1] +
-              prev.date_services.split(".")[0]
+            prev.date_services.split("-")[0] +
+              prev.date_services.split("-")[1] +
+              prev.date_services.split("-")[2]
           )
       );
     },
@@ -168,25 +170,25 @@ export default {
         let newarr = [
           {
             services_name:
-              month[Number(arr[0].date_services.split(".")[1]) - 1] +
+              month[Number(arr[0].date_services.split("-")[1]) - 1] +
               " " +
-              arr[0].date_services.split(".")[2],
+              arr[0].date_services.split("-")[0],
           },
           arr[0],
         ];
         console.log(arr.length);
         for (let i = 1; i < arr.length; i++) {
           if (
-            arr[i].date_services.split(".")[1] !=
-              arr[i - 1].date_services.split(".")[1] ||
-            arr[i].date_services.split(".")[2] !=
-              arr[i - 1].date_services.split(".")[2]
+            arr[i].date_services.split("-")[1] !=
+              arr[i - 1].date_services.split("-")[1] ||
+            arr[i].date_services.split("-")[0] !=
+              arr[i - 1].date_services.split("-")[0]
           ) {
             newarr.push({
               services_name:
-                month[Number(arr[i].date_services.split(".")[1]) - 1] +
+                month[Number(arr[i].date_services.split("-")[1]) - 1] +
                 " " +
-                arr[i].date_services.split(".")[2],
+                arr[i].date_services.split("-")[0],
             });
           }
           newarr.push(arr[i]);

@@ -34,13 +34,14 @@
       class="btn center"
       @click="
         MutateLogin({ password: Password, login: Email });
+
         Login();
       "
     >
       Войти
     </button>
     <h2 class="warning center" v-if="User.Error !== undefined">
-      Eror: {{ User.Error }}
+      {{ User.Error }}
     </h2>
   </div>
 </template>
@@ -53,7 +54,20 @@ export default {
   },
   methods: {
     ...mapMutations(["MutateLogin", "Input"]),
-    ...mapActions(["Login", "UpdateUserInfo"]),
+    ...mapActions(["Login", "UpdateServiceInfo"]),
+  },
+  mounted() {
+    this.$nextTick(function () {
+      if (
+        this.$cookies.get("token") != undefined &&
+        this.$cookies.get("id") != undefined
+      ) {
+        this.User.login = true;
+        this.User.UserToken = this.$cookies.get("token");
+        this.User.UserId = this.$cookies.get("id");
+        this.UpdateServiceInfo();
+      }
+    });
   },
   data() {
     return {
@@ -62,6 +76,7 @@ export default {
       errEmail: false,
       errPassword: false,
       registration: false,
+      pass: "",
     };
   },
 };

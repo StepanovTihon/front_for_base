@@ -3,7 +3,10 @@
     <div
       style="color: #77a9f9"
       class="navtext"
-      @click="ChangeActivePage('ServiceInfo')"
+      @click="
+        ChangeActivePage('ServiceInfo');
+        UpdateServiceInfo();
+      "
     >
       Личный кабинет
     </div>
@@ -30,7 +33,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["UpdateUserInfo"]),
+    ...mapActions(["UpdateUserInfo", "UpdateServiceInfo"]),
     ...mapMutations(["ChangeActivePage"]),
   },
   data() {
