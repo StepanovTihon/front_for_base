@@ -3,7 +3,7 @@
     <div class="list-item">Имя: {{ User.UserName }}</div>
     <div class="list-item">Логин: {{ User.UserLogin }}</div>
 
-    <div class="list-item">Адрес: {{ User.Service[0].adress }}</div>
+    <div class="list-item">Адрес: {{ address }}</div>
     <button class="btn" @click="SignOut">Выйти</button>
   </div>
 </template>
@@ -13,6 +13,9 @@ export default {
   computed: {
     ...mapState(["User"]),
     ...mapMutations(["SignOut"]),
+    address() {
+      return this.User.Service[0].address;
+    },
   },
   methods: {},
   data() {

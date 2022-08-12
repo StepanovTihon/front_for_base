@@ -8,9 +8,15 @@
         UpdateServiceInfo();
       "
     >
-      Личный кабинет
+      {{ mobile ? "Личный кабинет" : "Кабинет" }}
     </div>
-    <div style="color: #77a9f9" class="navtext">Подать показания</div>
+    <div
+      style="color: #77a9f9"
+      class="navtext"
+      @click="ChangeActivePage('DrawIndications')"
+    >
+      {{ mobile ? "Подать показания" : "Показания" }}
+    </div>
     <img
       src="./low.png"
       style="height: 50px; background: rgb(0, 0, 0, 0.5)"

@@ -11,7 +11,8 @@
 import NavigationBar from "../NavigationBar.vue";
 import DrawUserInfo from "../DrawUserInfo.vue";
 import ServiceInfo from "../ServiceInfo.vue";
-
+DrawIndications;
+import DrawIndications from "../DrawIndications.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -27,7 +28,7 @@ export default {
   data() {
     return {};
   },
-  components: { NavigationBar, DrawUserInfo, ServiceInfo },
+  components: { NavigationBar, DrawUserInfo, ServiceInfo, DrawIndications },
 };
 </script>
 

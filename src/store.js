@@ -12,7 +12,20 @@ export default createStore({
         UserToken: "",
         UserName: "",
         Error: "",
+        Spinner: false,
         Service: [],
+        Indications: [
+          {
+            date_indications: "2020-11-15",
+            services_name: "вода",
+            value_indications: 152000,
+          },
+          {
+            date_indications: "2021-12-10",
+            services_name: "электричество",
+            value_indications: 2000,
+          },
+        ],
       },
     };
   },
@@ -37,7 +50,12 @@ export default createStore({
     LoginUpdate(state, value) {
       state.User.UserToken = value.data.token;
       state.User.UserId = value.data.lodgers_id;
-      state.User.Error = "Eror:" + String(value.response.status);
+      state.User.Spinner = false;
+      switch (String(value.response.status)) {
+        case "400":
+          state.User.Error = "Неверный логин или пароль";
+          break;
+      }
 
       if (value.data.error === undefined) {
         state.User.login = !state.User.login;
@@ -55,6 +73,9 @@ export default createStore({
     },
     NewService(state, value) {
       state.User.Service = value;
+    },
+    Spinner(state) {
+      state.User.Spinner = true;
     },
   },
   actions: {

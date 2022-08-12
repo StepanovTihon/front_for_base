@@ -33,9 +33,11 @@
     <button
       class="btn center"
       @click="
-        MutateLogin({ password: Password, login: Email });
-
-        Login();
+        Spinner();
+        if (Password.length >= 8 && Email.length !== 0) {
+          MutateLogin({ password: Password, login: Email });
+          Login();
+        }
       "
     >
       Войти
@@ -43,6 +45,7 @@
     <h2 class="warning center" v-if="User.Error !== undefined">
       {{ User.Error }}
     </h2>
+    <div class="loader" v-if="User.Spinner">Loading...</div>
   </div>
 </template>
 
@@ -53,7 +56,7 @@ export default {
     ...mapState(["User"]),
   },
   methods: {
-    ...mapMutations(["MutateLogin", "Input"]),
+    ...mapMutations(["MutateLogin", "Input", "Spinner"]),
     ...mapActions(["Login", "UpdateServiceInfo"]),
   },
   mounted() {
