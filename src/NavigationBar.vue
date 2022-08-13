@@ -13,7 +13,10 @@
     <div
       style="color: #77a9f9"
       class="navtext"
-      @click="ChangeActivePage('DrawIndications')"
+      @click="
+        ChangeActivePage('DrawIndications');
+        UpdateIndicationsInfo();
+      "
     >
       {{ mobile ? "Подать показания" : "Показания" }}
     </div>
@@ -39,7 +42,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(["UpdateUserInfo", "UpdateServiceInfo"]),
+    ...mapActions([
+      "UpdateUserInfo",
+      "UpdateServiceInfo",
+      "UpdateIndicationsInfo",
+    ]),
     ...mapMutations(["ChangeActivePage"]),
   },
   data() {

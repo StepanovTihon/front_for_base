@@ -12,26 +12,38 @@
         style="background: rgb(0, 0, 0); width: 100%"
       >
         <input
-          id="Email"
+          id="date1"
           class="flex-element small form-control input"
           type="email"
           v-model="DateIndications"
           placeholder="ГГГГ-ММ-ДД"
         />
         <select
+          id="name1"
           class="flex-element small left form-control input"
           style="align-items: flex-start"
+          v-model="ServicesName"
         >
           <option>Вода</option>
           <option>Электричество</option>
         </select>
         <input
-          id="Email"
+          id="value1"
           class="flex-element small form-control input"
           type="email"
-          v-model="Indications"
+          v-model="ValueIndications"
         />
-        <div style="position: absolute; left: 76%; font-size: 140%">
+        <div
+          @click="
+            UpdateIndicationsValue({
+              ServicesName: ServicesName,
+              DateIndications: DateIndications,
+              ValueIndications: ValueIndications,
+            });
+            CreateIndications();
+          "
+          style="position: absolute; left: 76%; font-size: 140%"
+        >
           &#9989;
         </div>
       </div>
@@ -126,7 +138,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState(["User"]),
@@ -151,10 +163,16 @@ export default {
       return window.innerWidth > window.innerHeight;
     },
   },
-  methods: {},
+  methods: {
+    ...mapMutations(["UpdateIndicationsValue"]),
+    ...mapActions(["CreateIndications"]),
+  },
   data() {
     return {
       filter: true,
+      ValueIndications: null,
+      DateIndications: null,
+      ServicesName: null,
     };
   },
 };

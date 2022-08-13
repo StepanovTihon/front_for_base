@@ -13,17 +13,22 @@ export default createStore({
         UserName: "",
         Error: "",
         Spinner: false,
+        ServicesName: "",
+        DateIndications: "",
+        ValueIndications: null,
         Service: [],
         Indications: [
           {
             date_indications: "2020-11-15",
             services_name: "вода",
             value_indications: 152000,
+            apartments_id: 97,
           },
           {
             date_indications: "2021-12-10",
             services_name: "электричество",
             value_indications: 2000,
+            apartments_id: 97,
           },
         ],
       },
@@ -77,6 +82,14 @@ export default createStore({
     Spinner(state) {
       state.User.Spinner = true;
     },
+    UpdateIndicationsValue(state, value) {
+      state.User.ServicesName = value.ServicesName;
+      state.User.DateIndications = value.DateIndications;
+      state.User.ValueIndications = value.ValueIndications;
+    },
+    UpdateIndications(state, value) {
+      state.User.Indications = value;
+    },
   },
   actions: {
     async UpdateUserInfo(context) {
@@ -111,6 +124,34 @@ export default createStore({
 
       context.commit("LoginUpdate", { data: data, response: response });
       this.dispatch("UpdateServiceInfo");
+    },
+    async CreateIndications() {
+      await fetch(`/create_indication/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          lodgers_id: this.state.User.UserId,
+          token: this.state.User.UserToken,
+          services_name: this.state.User.ServicesName,
+          apartments_id: this.state.User.Indications[0].apartments_id,
+          date_indications: this.state.User.DateIndications,
+          value_indications: this.state.User.ValueIndications,
+        }),
+      });
+
+      this.dispatch("UpdateIndicationsInfo");
+    },
+    async UpdateIndicationsInfo(context) {
+      const response = await fetch(
+        `/get_indication/${this.state.User.UserId}/${this.state.User.UserToken}`,
+        { methods: "GET" }
+      );
+      const data = await response.json();
+      console.log(data.arr);
+      context.commit("UpdateIndications", data.arr);
     },
   },
   modules: {},
