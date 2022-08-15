@@ -74,10 +74,21 @@
           placeholder="ГГГГ-ММ-ДД"
           style="width: 75%"
         />
-        <div style="position: absolute; left: 75%; font-size: 200%">
+        <div
+          style="position: absolute; left: 75%; font-size: 200%"
+          @click="
+            UpdateIndicationsValue({
+              ServicesName: ServicesName,
+              DateIndications: DateIndications,
+              ValueIndications: ValueIndications,
+            });
+            CreateIndications();
+          "
+        >
           &#9989;
         </div>
         <select
+          v-model="ServicesName"
           class="flex-element small left form-control input"
           style="align-items: flex-start; width: 75%"
         >
@@ -89,7 +100,7 @@
           id="Email"
           class="flex-element small form-control input"
           type="email"
-          v-model="Indications"
+          v-model="ValueIndications"
           style="width: 75%"
           placeholder="Значение показания"
         />
