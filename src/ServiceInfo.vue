@@ -23,7 +23,8 @@
         </h5>
       </div>
     </div>
-    <div class="flex-conteiner to-strings" v-if="mobile">
+
+    <div v-if="mobile" class="flex-conteiner to-strings">
       <div class="flex-conteiner nav">
         <div class="flex-element">Период</div>
         <div class="flex-element">Категория</div>
@@ -204,6 +205,7 @@ export default {
   data() {
     return {
       filter: true,
+      allpaid: false,
     };
   },
 };

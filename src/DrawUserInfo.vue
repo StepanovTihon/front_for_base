@@ -4,7 +4,16 @@
     <div class="list-item">Логин: {{ User.UserLogin }}</div>
 
     <div class="list-item">Адрес: {{ address }}</div>
-    <button class="btn" @click="SignOut">Выйти</button>
+    <button
+      class="btn"
+      @click="
+        SignOut();
+        this.$cookies.set('token', '');
+        this.$cookies.set('id', '');
+      "
+    >
+      Выйти
+    </button>
   </div>
 </template>
 <script>
@@ -12,12 +21,14 @@ import { mapState, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState(["User"]),
-    ...mapMutations(["SignOut"]),
+
     address() {
       return this.User.Service[0].address;
     },
   },
-  methods: {},
+  methods: {
+    ...mapMutations(["SignOut"]),
+  },
   data() {
     return {};
   },

@@ -4,48 +4,30 @@
       <div class="flex-conteiner nav">
         <div class="flex-element">Период</div>
         <div class="flex-element">Категория</div>
+        <div class="flex-element">Старые показания</div>
         <div class="flex-element">Показания</div>
       </div>
-
-      <div
-        class="flex-conteiner string"
-        style="background: rgb(0, 0, 0); width: 100%"
-      >
-        <input
-          id="date1"
-          class="flex-element small form-control input"
-          type="email"
-          v-model="DateIndications"
-          placeholder="ГГГГ-ММ-ДД"
-        />
-        <select
-          id="name1"
-          class="flex-element small left form-control input"
-          style="align-items: flex-start"
-          v-model="ServicesName"
-        >
-          <option>Вода</option>
-          <option>Электричество</option>
-        </select>
-        <input
-          id="value1"
-          class="flex-element small form-control input"
-          type="email"
-          v-model="ValueIndications"
-        />
+      <div>
         <div
-          @click="
-            UpdateIndicationsValue({
-              ServicesName: ServicesName,
-              DateIndications: DateIndications,
-              ValueIndications: ValueIndications,
-            });
-            CreateIndications();
-          "
-          style="position: absolute; left: 76%; font-size: 140%"
+          class="flex-conteiner string"
+          style="background: rgb(0, 0, 0); width: 100%"
+          v-for="OneService in whyNameService"
+          v-bind:key="OneService"
         >
-          &#9989;
+          <NewIndications :OneService="OneService" />
         </div>
+        <div
+          class="flex-conteiner string"
+          style="background: rgb(0, 0, 0); width: 100%"
+        >
+          <NewIndicationsAndName :OneService="OneService" />
+        </div>
+      </div>
+
+      <div class="flex-conteiner nav">
+        <div class="flex-element">Период</div>
+        <div class="flex-element">Категория</div>
+        <div class="flex-element">Показания</div>
       </div>
 
       <div
@@ -150,6 +132,9 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
+import NewIndications from "./NewIndications.vue";
+import NewIndicationsAndName from "./NewIndicationsAndName.vue";
+
 export default {
   computed: {
     ...mapState(["User"]),
@@ -169,6 +154,31 @@ export default {
           )
       );
     },
+    whyNameService() {
+      let arr = this.User.Indications;
+
+      var names = [];
+
+      for (var i = 0; i < arr.length; i++) {
+        var er = false;
+        for (var y = 0; y < names.length; y++) {
+          if (arr[i].services_name == names[y]) {
+            er = true;
+          }
+        }
+
+        if (er === false) {
+          names.push([arr[i].services_name]);
+        }
+      }
+      for (var h = 0; h < names.length; h++) {
+        names[h].push(
+          this.sortMass.filter((value) => value.services_name == names[h][0])[0]
+            .value_indications
+        );
+      }
+      return names;
+    },
 
     mobile() {
       return window.innerWidth > window.innerHeight;
@@ -186,5 +196,6 @@ export default {
       ServicesName: null,
     };
   },
+  components: { NewIndications, NewIndicationsAndName },
 };
 </script>
