@@ -3,7 +3,7 @@
     id="date1"
     class="flex-element small form-control input"
     type="email"
-    v-model="DateIndications"
+    v-model="DateServices"
     placeholder="ГГГГ-ММ-ДД"
     style="
       align-items: flex-start;
@@ -11,7 +11,6 @@
       color: rgb(255, 255, 255);
     "
   />
-
   <input
     id="name1"
     class="flex-element small left form-control input"
@@ -19,43 +18,32 @@
       align-items: flex-start;
       background: rgb(0, 0, 0);
       color: rgb(255, 255, 255);
-      border: 0px;
     "
-    :value="OneService[0]"
+    v-model="ServicesName"
   />
+
   <input
     id="value1"
     class="flex-element small form-control input"
     type="email"
-    style="
-      align-items: flex-start;
-      background: rgb(0, 0, 0);
-      color: rgb(255, 255, 255);
-      border: 0px;
-    "
-    :value="OneService[1]"
-  />
-  <input
-    id="value1"
-    class="flex-element small form-control input"
-    type="email"
-    v-model="ValueIndications"
+    v-model="PaymentAmount"
     style="
       align-items: flex-start;
       background: rgb(0, 0, 0);
       color: rgb(255, 255, 255);
     "
   />
+
   <div
     @click="
-      UpdateIndicationsValue({
-        ServicesName: OneService[0],
-        DateIndications: DateIndications,
-        ValueIndications: ValueIndications,
+      UpdateServiceValue({
+        ServicesName: ServicesName,
+        DateServices: DateServices,
+        PaymentAmount: PaymentAmount,
       });
-      CreateIndications();
+      CreateService();
     "
-    style="position: absolute; left: 76%; font-size: 140%"
+    style="position: relative; font-size: 140%"
   >
     &#9989;
   </div>
@@ -64,15 +52,15 @@
 <script>
 import { mapMutations, mapActions } from "vuex";
 export default {
+  computed: {
+    DateServices: function () {
+      return new Date().toISOString().split("T")[0];
+    },
+  },
   props: ["OneService"],
   methods: {
-    ...mapMutations(["UpdateIndicationsValue"]),
-    ...mapActions(["CreateIndications"]),
-  },
-  data() {
-    return {
-      DateIndications: new Date().toISOString().split("T")[0],
-    };
+    ...mapMutations(["UpdateServiceValue"]),
+    ...mapActions(["CreateService"]),
   },
 };
 </script>

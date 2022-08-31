@@ -4,30 +4,33 @@
       style="color: #77a9f9"
       class="navtext"
       @click="
-        ChangeActivePage('ServiceInfo');
+        ChangeActivePage('PeopleAndApartments');
         UpdateServiceInfo();
       "
     >
-      {{ mobile ? "Личный кабинет" : "Кабинет" }}
+      Справочники
     </div>
     <div
       style="color: #77a9f9"
       class="navtext"
       @click="
-        ChangeActivePage('DrawIndications');
+        ChangeActivePage('ServiceInfoAdmin');
+        GetAllLodgers();
+      "
+    >
+      Выставить счёт
+    </div>
+    <div
+      style="color: #77a9f9"
+      class="navtext"
+      @click="
+        ChangeActivePage('DrawIndicationsAdmin');
+        GetAllLodgers();
         UpdateIndicationsInfo();
       "
     >
-      {{ "Показания" }}
+      Показания
     </div>
-    <img
-      src="./low.png"
-      style="height: 50px; background: rgb(0, 0, 0, 0.5)"
-      @click="
-        ChangeActivePage('DrawUserInfo');
-        UpdateUserInfo();
-      "
-    />
   </div>
 </template>
 
@@ -46,6 +49,7 @@ export default {
       "UpdateUserInfo",
       "UpdateServiceInfo",
       "UpdateIndicationsInfo",
+      "GetAllLodgers",
     ]),
     ...mapMutations(["ChangeActivePage"]),
   },

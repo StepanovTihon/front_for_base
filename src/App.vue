@@ -1,17 +1,19 @@
 <template>
   <div :class="mobile === true ? 'container' : ''">
-    <MainLayout v-if="User.login === true"></MainLayout>
+    <MainLayout v-if="User.login === true && !admin"></MainLayout>
+    <AdminLayout v-if="User.login === true && admin"></AdminLayout>
     <LoginLayout v-if="User.login === false"></LoginLayout>
   </div>
 </template>
 
 <script>
 import MainLayout from "./layout/MainLayout.vue";
+import AdminLayout from "./layout/AdminLayout.vue";
 import LoginLayout from "./layout/LoginLayout.vue";
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["User"]),
+    ...mapState(["User", "admin"]),
     mobile() {
       return window.innerWidth > window.innerHeight;
     },
@@ -21,7 +23,7 @@ export default {
     return {};
   },
   name: "App",
-  components: { MainLayout, LoginLayout },
+  components: { MainLayout, LoginLayout, AdminLayout },
 };
 /*
 function isMobile() { 

@@ -1,36 +1,45 @@
 <template>
   <div class="card">
     <div class="flex-conteiner to-strings" v-if="mobile">
-      <details>
-        <summary>Подать показания</summary>
-        <div class="flex-conteiner nav">
-          <div class="flex-element">Период</div>
-          <div class="flex-element">Категория</div>
-          <div class="flex-element">Старые показания</div>
-          <div class="flex-element">Показания</div>
+      <select class="btn" @change="onChange($event)">
+        <option
+          v-for="a in User.Lodgers"
+          v-bind:key="a.lodgers_id"
+          class="btn"
+          :value="[a.lodgers_id, a.token]"
+        >
+          {{ a.name_lodgers }}
+        </option>
+      </select>
+      <div class="flex-conteiner nav">
+        <div class="flex-element">Период</div>
+        <div class="flex-element">Категория</div>
+        <div class="flex-element">Старые показания</div>
+        <div class="flex-element">Показания</div>
+      </div>
+      <div>
+        <div
+          class="flex-conteiner string"
+          style="background: rgb(0, 0, 0); width: 100%"
+          v-for="OneService in whyNameService"
+          v-bind:key="OneService"
+        >
+          <NewIndications :OneService="OneService" />
         </div>
-        <div>
-          <div
-            class="flex-conteiner string"
-            style="background: rgb(0, 0, 0); width: 100%"
-            v-for="OneService in whyNameService"
-            v-bind:key="OneService"
-          >
-            <NewIndications :OneService="OneService" />
-          </div>
-          <div
-            class="flex-conteiner string"
-            style="background: rgb(0, 0, 0); width: 100%"
-          >
-            <NewIndicationsAndName :OneService="OneService" />
-          </div>
+        <div
+          class="flex-conteiner string"
+          style="background: rgb(0, 0, 0); width: 100%"
+        >
+          <NewIndicationsAndName :OneService="OneService" />
         </div>
-      </details>
+      </div>
+
       <div class="flex-conteiner nav">
         <div class="flex-element">Период</div>
         <div class="flex-element">Категория</div>
         <div class="flex-element">Показания</div>
       </div>
+
       <div
         v-for="OneService in sortMass"
         :key="OneService.service_id"
@@ -43,12 +52,9 @@
         <div class="flex-element small left" style="align-items: flex-start">
           {{ OneService.services_name }}
         </div>
-        <div class="flex-element small">
-          {{ OneService.value_indications }}
-        </div>
+        <div class="flex-element small">{{ OneService.value_indications }}</div>
       </div>
     </div>
-
     <div class="flex-conteiner to-strings" v-if="!mobile">
       <details>
         <summary>Подать показания</summary>
@@ -189,9 +195,15 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["UpdateIndicationsValue"]),
-    ...mapActions(["CreateIndications"]),
+    ...mapMutations(["UpdateIndicationsValue", "SelectUser"]),
+    ...mapActions(["CreateIndications", "UpdateIndicationsInfo"]),
+    onChange(event) {
+      console.log(event.target.value);
+      this.SelectUser(event.target.value);
+      this.UpdateIndicationsInfo();
+    },
   },
+
   data() {
     return {
       filter: true,
@@ -200,6 +212,9 @@ export default {
       ServicesName: null,
     };
   },
-  components: { NewIndications, NewIndicationsAndName },
+  components: {
+    NewIndications,
+    NewIndicationsAndName,
+  },
 };
 </script>

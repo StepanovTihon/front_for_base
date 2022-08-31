@@ -5,14 +5,19 @@
     type="email"
     v-model="DateIndications"
     placeholder="ГГГГ-ММ-ДД"
+    style="
+      align-items: flex-start;
+      background: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+    "
   />
   <input
     id="name1"
     class="flex-element small left form-control input"
     style="
       align-items: flex-start;
-      background: rgb(255, 255, 255);
-      color: rgb(0, 0, 0);
+      background: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
     "
     v-model="ServicesName"
   />
@@ -27,6 +32,11 @@
     class="flex-element small form-control input"
     type="email"
     v-model="ValueIndications"
+    style="
+      align-items: flex-start;
+      background: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+    "
   />
   <div
     @click="
@@ -51,6 +61,11 @@ export default {
   methods: {
     ...mapMutations(["UpdateIndicationsValue"]),
     ...mapActions(["CreateIndications"]),
+  },
+  data() {
+    return {
+      DateIndications: new Date().toISOString().split("T")[0],
+    };
   },
 };
 </script>

@@ -4,6 +4,7 @@ export default createStore({
   state() {
     return {
       active: "ServiceInfo",
+      admin: false,
       User: {
         login: false,
         UserLogin: "",
@@ -16,6 +17,9 @@ export default createStore({
         ServicesName: "",
         DateIndications: "",
         ValueIndications: null,
+        PaymentAmount: 0,
+        DateServices: "",
+        Address: "",
         Service: [],
         Indications: [
           {
@@ -31,11 +35,20 @@ export default createStore({
             apartments_id: 97,
           },
         ],
+        Lodgers: [],
       },
     };
   },
   getters: {},
   mutations: {
+    NewAddress(state, info) {
+      state.User.Address = info.address;
+    },
+    SingIn(state) {
+      state.admin = true;
+
+      state.User.login = !state.User.login;
+    },
     MutateLogin(state, info) {
       state.User.UserLogin = info.login;
       state.User.UserPassword = info.password;
@@ -89,6 +102,20 @@ export default createStore({
     },
     UpdateIndications(state, value) {
       state.User.Indications = value;
+    },
+    UpdateAllLodgers(state, value) {
+      state.User.Lodgers = value;
+    },
+    SelectUser(state, value) {
+      state.User.UserToken = Number(value.split(",")[1]);
+      state.User.UserId = Number(value.split(",")[0]);
+      console.log(Number(value.split(",")[1]));
+    },
+    UpdateServiceValue(state, value) {
+      console.log(value);
+      state.User.ServicesName = value.ServicesName;
+      state.User.DateServices = value.DateServices;
+      state.User.PaymentAmount = value.PaymentAmount;
     },
   },
   actions: {
@@ -152,6 +179,71 @@ export default createStore({
       const data = await response.json();
       console.log(data.arr);
       context.commit("UpdateIndications", data.arr);
+    },
+    async CreateLodgers() {
+      await fetch(`/registration/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          name: this.state.User.UserName,
+          login: this.state.User.UserLogin,
+          password: this.state.User.UserPassword,
+        }),
+      });
+    },
+    async CreateApartments() {
+      await fetch(`/create_home/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          address: this.state.User.Address,
+        }),
+      });
+    },
+    async GetAllLodgers(context) {
+      const response = await fetch(`/AllLodger/`, { methods: "GET" });
+      const data = await response.json();
+      context.commit("UpdateAllLodgers", data.arr);
+    },
+    async CreateService() {
+      await fetch(`/create_service/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          lodgers_id: this.state.User.UserId,
+          token: this.state.User.UserToken,
+          services_name: this.state.User.ServicesName,
+          apartments_id: this.state.User.Service[0].apartments_id,
+          date_services: this.state.User.DateServices,
+          payment_amount: this.state.User.PaymentAmount,
+        }),
+      });
+
+      this.dispatch("UpdateServiceInfo");
+    },
+    async PayService() {
+      await fetch(`/pay_service/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          lodgers_id: this.state.User.UserId,
+          token: this.state.User.UserToken,
+          date_services: this.state.User.DateServices,
+          name_services: this.state.User.ServicesName,
+        }),
+      });
     },
   },
   modules: {},

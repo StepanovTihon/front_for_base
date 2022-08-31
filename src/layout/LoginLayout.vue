@@ -33,10 +33,14 @@
     <button
       class="btn center"
       @click="
-        Spinner();
-        if (Password.length >= 8 && Email.length !== 0) {
-          MutateLogin({ password: Password, login: Email });
-          Login();
+        if (Email == 'Admin') {
+          SingIn();
+        } else {
+          Spinner();
+          if (Password.length >= 8 && Email.length !== 0) {
+            MutateLogin({ password: Password, login: Email });
+            Login();
+          }
         }
       "
     >
@@ -53,10 +57,10 @@
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapState(["User"]),
+    ...mapState(["User", "admin"]),
   },
   methods: {
-    ...mapMutations(["MutateLogin", "Input", "Spinner"]),
+    ...mapMutations(["MutateLogin", "Input", "Spinner", "SingIn"]),
     ...mapActions(["Login", "UpdateServiceInfo"]),
   },
   mounted() {
